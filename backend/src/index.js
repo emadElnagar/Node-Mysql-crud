@@ -1,19 +1,12 @@
 import express from 'express';
-import { createConnection } from 'mysql';
+import booksRouter from './routes/books.routes.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
-const dbPassword = process.env.PASSWORD || '';
-const databaseSrc = process.env.DBSRC || 'company';
-
-const db = createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: dbPassword,
-  database: databaseSrc
-});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(booksRouter);
 
 app.listen(port);
