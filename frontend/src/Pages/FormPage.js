@@ -1,7 +1,7 @@
 const FormPage = () => {
   return (
-    <div className="w-9/12 m-auto my-14">
-      <h1 className="font-serif font-bold text-4xl text-center">create new book</h1>
+    <div className="w-9/12 m-auto my-14 uppercase">
+      <h1 className="font-serif font-bold text-3xl text-center">create new book</h1>
       <form className="mt-5">
         <input type="text" placeholder="book title" className="w-full mt-4 px-5 py-2 border border-solid border-1 border-sky-400 focus:outline-none" />
         <input type="text" placeholder="book author" className="w-full mt-4 px-5 py-2 border border-solid border-1 border-sky-400 focus:outline-none" />
