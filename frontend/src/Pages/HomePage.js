@@ -1,6 +1,8 @@
+import BookCard from "../components/BookCard";
+
 const HomePage = () => {
   return (
-    <div>Home page</div>
+    <BookCard />
   )
 }
 
