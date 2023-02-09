@@ -1,10 +1,24 @@
+import { useState } from 'react';
+import axios from 'axios';
+
 const FormPage = () => {
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const id = crypto.randomUUID();
+    axios.post('http://localhost:5000/books/new', {
+      id,
+      title,
+      author
+    });
+  }
   return (
     <div className="w-9/12 m-auto my-14 uppercase">
       <h1 className="font-serif font-bold text-3xl text-center">create new book</h1>
-      <form className="mt-5">
-        <input type="text" placeholder="book title" className="w-full mt-4 px-5 py-2 border border-solid border-1 border-sky-400 focus:outline-none" />
-        <input type="text" placeholder="book author" className="w-full mt-4 px-5 py-2 border border-solid border-1 border-sky-400 focus:outline-none" />
+      <form className="mt-5" onSubmit={handleSubmit}>
+        <input type="text" placeholder="Book title" className="w-full mt-4 px-5 py-2 border border-solid border-1 border-sky-400 focus:outline-none" onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" placeholder="Book author" className="w-full mt-4 px-5 py-2 border border-solid border-1 border-sky-400 focus:outline-none" onChange={(e) => setAuthor(e.target.value)} />
         <input
           type="submit"
           value="submit"

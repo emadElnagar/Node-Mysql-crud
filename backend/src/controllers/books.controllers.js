@@ -10,11 +10,12 @@ export const getAllBooks = (_req, res) => {
 }
 
 export const newBook = (req, res) => {
-  const inserQuery = `INSERT INTO books (title, author) VALUES (?, ?)`;
-  db.query(inserQuery, [title, author], (err, result) => {
+  const { id, title, author } = req.body;
+  const inserQuery = `INSERT INTO books (id, title, author) VALUES (?, ?, ?)`;
+  db.query(inserQuery, [id, title, author], (err, result) => {
     if (err) {
       console.log(err);
     }
     res.send(result);
-  })
+  });
 }

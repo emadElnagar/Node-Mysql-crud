@@ -3,8 +3,8 @@ import { getAllBooks, newBook } from '../controllers/books.controllers.js';
 
 const booksRouter = express.Router();
 
-booksRouter.get('/books', getAllBooks);
+booksRouter.get('/', getAllBooks);
 
-booksRouter.post('/books/new', newBook);
+booksRouter.post('/new', newBook);
 
 export default booksRouter;
