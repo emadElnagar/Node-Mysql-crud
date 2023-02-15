@@ -38,5 +38,18 @@ export const newBook = (req, res) => {
       });
     }
   })
-  
+}
+
+// Delete Book Controller
+export const deleteBook = (req, res) => {
+  const slug = req.params.slug;
+  deleteQuery = `DELETE FROM Customers WHERE slug =(?)`
+  db.query(deleteQuery, [slug], (err, _result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.status(200).json({
+      message: 'Book deleted successfully'
+    });
+  });
 }
