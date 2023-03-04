@@ -19,7 +19,10 @@ export const newBook = (req, res) => {
     lower: true,
     strict: true,
   });
-  const inserQuery = `INSERT INTO books (id, title, author, slug) VALUES (?, ?, ?, ?)`;
+  const createdAt = new Date();
+  const lastUpdate = new Date();
+  console.log(createdAt.getHours());
+  const inserQuery = `INSERT INTO books (id, title, author, slug, createdAt, lastUpdate) VALUES (?, ?, ?, ?, ?, ?)`;
   const findTitle = `SELECT * FROM books WHERE title = (?);`;
   db.query(findTitle, [title], (err, result) => {
     if (err) {
@@ -30,14 +33,14 @@ export const newBook = (req, res) => {
         message: 'This Book already found in your library'
       });
     } else {
-      db.query(inserQuery, [id, title, author, slug], (err, result) => {
+      db.query(inserQuery, [id, title, author, slug, createdAt, lastUpdate], (err, result) => {
         if (err) {
           console.log(err);
         }
         res.send(result);
       });
     }
-  })
+  });
 }
 
 // Delete Book Controller
