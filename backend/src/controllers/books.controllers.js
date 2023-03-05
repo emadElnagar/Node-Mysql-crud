@@ -3,7 +3,7 @@ import slugify from 'slugify';
 
 // Get All Books Controller
 export const getAllBooks = (_req, res) => {
-  db.query(`SELECT * FROM books`, (err, result) => {
+  db.query(`SELECT * FROM books ORDER BY createdAt DESC`, (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -21,7 +21,6 @@ export const newBook = (req, res) => {
   });
   const createdAt = new Date();
   const lastUpdate = new Date();
-  console.log(createdAt.getHours());
   const inserQuery = `INSERT INTO books (id, title, author, slug, createdAt, lastUpdate) VALUES (?, ?, ?, ?, ?, ?)`;
   const findTitle = `SELECT * FROM books WHERE title = (?);`;
   db.query(findTitle, [title], (err, result) => {
