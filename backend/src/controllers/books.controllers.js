@@ -42,6 +42,33 @@ export const newBook = (req, res) => {
   });
 }
 
+// Update Book Controller
+export const updateBook = (req, res) => {
+  const { slug } = req.params;
+  const { title, author } = req.body;
+  const lastUpdate = new Date();
+  const newSlug = slugify(title, {
+    replacement: '-',
+    lower: true,
+    strict: true,
+  });
+  const updateQuery = `
+    UPDATE books SET title = (?),
+    author = (?),
+    slug = (?),
+    lastUpdate = (?)
+    WHERE slug = (?)
+  `;
+  db.query(updateQuery, [title, author, newSlug, lastUpdate, slug], (err, _result) => {
+    if (err) {
+      res.status(402).json(err);
+    }
+    res.status(200).json({
+      message: 'Book Updated Successfully'
+    });
+  });
+}
+
 // Delete Book Controller
 export const deleteBook = (req, res) => {
   const slug = req.params.slug;
