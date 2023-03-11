@@ -25,13 +25,26 @@ const BookCard = (props) => {
       }
     });
   }
+  const handleUpdate = (slug) => {
+    swal.fire({
+      title: 'Update Book',
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      confirmButtonColor: '#54B4D3',
+      html: `<input type="text" id="title" class="swal2-input" placeholder="Book Title">
+      <input type="password" id="author" class="swal2-input" placeholder="Book Author">`,
+      confirmButtonText: 'Submit',
+      focusConfirm: false,
+      preConfirm: () => {}
+    }).then((result) => {});
+  }
   return (
     <div className="shadow-md w-96 min-w-96 m-auto my-14 pt-8 text-center">
       <h1 className="font-serif capitalize text-2xl text-sky-400">{ book.title }</h1>
       <p className="font-serif capitalize text-lg mt-5">by: <span>{ book.author }</span></p>
       <div className="flex justify-between p-8">
         <AiOutlineDelete className="cursor-pointer text-red-600" title="Delete" onClick={() => handleDelete(book.slug)} />
-        <FiEdit2 className="cursor-pointer text-violet-600" title="Edit" />
+        <FiEdit2 className="cursor-pointer text-violet-600" title="Edit" onClick={() => handleUpdate(book.slug)} />
       </div>
     </div>
   )
