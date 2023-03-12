@@ -32,11 +32,25 @@ const BookCard = (props) => {
       cancelButtonColor: '#d33',
       confirmButtonColor: '#54B4D3',
       html: `<input type="text" id="title" class="swal2-input" placeholder="Book Title">
-      <input type="password" id="author" class="swal2-input" placeholder="Book Author">`,
+      <input type="text" id="author" class="swal2-input" placeholder="Book Author">`,
       confirmButtonText: 'Submit',
       focusConfirm: false,
-      preConfirm: () => {}
-    }).then((result) => {});
+      preConfirm: () => {
+        const title = swal.getPopup().querySelector('#title').value;
+        const author = swal.getPopup().querySelector('#author').value;
+        if (!title || !author) {
+          swal.showValidationMessage(`Please fill all fields`)
+        }
+        return { title, author }
+      }
+    }).then((result) => {
+      const title = result.value.title;
+      const author = result.value.author;
+      axios.put(`http://localhost:5000/books/update/${slug}`, {
+        title,
+        author
+      });
+    });
   }
   return (
     <div className="shadow-md w-96 min-w-96 m-auto my-14 pt-8 text-center">
