@@ -5,3 +5,11 @@
 .h-custom {
   height: calc(100vh - 4rem);
 }
+
+input {
+  caret-color: #f9f9f986;
+}
+
+input:not(:placeholder-shown) {
+  color: #f9f9f986;
+}

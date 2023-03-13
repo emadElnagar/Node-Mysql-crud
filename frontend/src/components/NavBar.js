@@ -4,10 +4,20 @@ function NavBar() {
   return (
     <nav className="h-16 shadow-lg">
       <ul className="h-full flex justify-evenly">
-        <li className="flex flex-col justify-center font-serif capitalize transition ease-in-out duration-300 hover:text-sky-400 cursor-pointer">
+        <li className="
+          flex flex-col justify-center font-serif capitalize 
+          transition ease-in-out duration-300 
+          hover:text-sky-400 cursor-pointer 
+          dark:text-dark-text dark:hover:text-sky-400"
+        >
           <Link to={`/`}>home</Link>
         </li>
-        <li className="flex flex-col justify-center font-serif capitalize transition ease-in-out duration-300 hover:text-sky-400 cursor-pointer">
+        <li className="
+        flex flex-col justify-center font-serif capitalize 
+        transition ease-in-out duration-300 
+        hover:text-sky-400 cursor-pointer 
+        dark:text-dark-text dark:hover:text-sky-400"
+        >
         <Link to={`/new`}>new book</Link>
         </li>
       </ul>

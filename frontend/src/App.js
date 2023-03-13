@@ -8,13 +8,15 @@ function App() {
   return (
     <BrowserRouter>
     <div className="App">
-      <header className="App-header">
-        <NavBar />
-      </header>
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/new' element={<FormPage />} />
-      </Routes>
+      <div className="h-screen dark:bg-dark-bg">
+        <header className="App-header dark:bg-dark-bg-dark">
+          <NavBar />
+        </header>
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/new' element={<FormPage />} />
+        </Routes>
+      </div>
     </div>
     </BrowserRouter>
   );
