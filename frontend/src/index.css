@@ -6,10 +6,10 @@
   height: calc(100vh - 4rem);
 }
 
-input {
-  caret-color: #f9f9f986;
+.dark {
+  caret-color: #fff;
 }
 
-input:not(:placeholder-shown) {
-  color: #f9f9f986;
+.dark:not(:placeholder-shown) {
+  color: #fff;
 }
