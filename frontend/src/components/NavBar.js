@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
-import { BsFillSunFill } from "react-icons/bs";
+import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
+import { useState } from "react";
 
-function NavBar() {
+function NavBar({ mode }) {
+  const [modeVal, setModeVal] = useState(false);
+  const handleModeToggle = (modeVal) => {
+    if (modeVal === true) {
+      mode(false);
+      setModeVal(false);
+    } else {
+      mode(true);
+      setModeVal(true);
+    }
+  }
   return (
     <nav className="h-16 shadow-lg flex">
       <ul className="w-10/12 h-full flex justify-evenly">
@@ -37,7 +48,14 @@ function NavBar() {
           transition ease-in-out duration-300 
           cursor-pointer dark:text-dark-text"
         >
-          <BsFillSunFill />
+          {
+            modeVal === true
+            ? (
+              <BsFillSunFill onClick={() => handleModeToggle(modeVal)} />
+            ) : (
+              <BsFillMoonFill onClick={() => handleModeToggle(modeVal)} />
+            )
+          }
         </li>
       </ul>
     </nav>

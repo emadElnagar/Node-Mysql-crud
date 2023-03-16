@@ -3,14 +3,16 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import FormPage from './Pages/FormPage';
 import HomePage from './Pages/HomePage';
+import { useState } from 'react';
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
   return (
     <BrowserRouter>
-    <div className="App">
-      <div className="h-screen dark:bg-dark-bg">
+    <div className={`App ${isDark && 'dark'}`}>
+      <div className="min-h-screen dark:bg-dark-bg">
         <header className="App-header dark:bg-dark-bg-dark">
-          <NavBar />
+          <NavBar mode={(modeVal) => setIsDark(modeVal)} />
         </header>
         <Routes>
           <Route path='/' element={<HomePage />} />

@@ -28,6 +28,7 @@ const FormPage = () => {
             mt-4 bg-sky-400 text-white cursor-pointer transition ease-in-out duration-300 px-5 py-2 capitalize
             border border-solid border-1 border-sky-400
             hover:bg-white hover:text-sky-400
+            dark:hover:bg-dark-bg
           "
         />
       </form>
