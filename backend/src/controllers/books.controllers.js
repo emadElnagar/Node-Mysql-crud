@@ -82,3 +82,15 @@ export const deleteBook = (req, res) => {
     });
   });
 }
+
+// Search Controller
+export const search = (req, res) => {
+  const { search } = req.query;
+  const searchQuery = `SELECT * FROM books WHERE TITLE = (?) OR author = (?)`;
+  db.query(searchQuery, [search], (err, result) => {
+    if(err) {
+      res.status(401).json(err);
+    } 
+    res.status(200).json(result);
+  });
+}

@@ -1,5 +1,5 @@
 import express from 'express';
-import { deleteBook, getAllBooks, newBook, updateBook } from '../controllers/books.controllers.js';
+import { deleteBook, getAllBooks, newBook, search, updateBook } from '../controllers/books.controllers.js';
 
 const booksRouter = express.Router();
 
@@ -14,5 +14,8 @@ booksRouter.put('/update/:slug', updateBook);
 
 // Delete Book Route
 booksRouter.delete('/delete/:slug', deleteBook);
+
+// Search Route
+booksRouter.get('/search', search);
 
 export default booksRouter;
