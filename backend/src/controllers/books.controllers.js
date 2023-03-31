@@ -87,7 +87,7 @@ export const deleteBook = (req, res) => {
 export const search = (req, res) => {
   const { search } = req.query;
   const searchQuery = `SELECT * FROM books WHERE TITLE = (?) OR author = (?)`;
-  db.query(searchQuery, [search], (err, result) => {
+  db.query(searchQuery, [search, search], (err, result) => {
     if(err) {
       res.status(401).json(err);
     } 
