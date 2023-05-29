@@ -25,6 +25,5 @@ const HomePage = () => {
     </div>
   )
 }
-// <BookCard />
 
 export default HomePage;
