@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { NewBook } from '../features/BookFeatures';
 
 const FormPage = () => {
   const navigate = useNavigate();
@@ -9,11 +9,7 @@ const FormPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const id = crypto.randomUUID();
-    axios.post('http://localhost:5000/books/new', {
-      id,
-      title,
-      author
-    }).then(navigate('/'));
+    NewBook(id, title, author).then(navigate('/'));
   }
   return (
     <div className="w-9/12 m-auto my-14 uppercase">
