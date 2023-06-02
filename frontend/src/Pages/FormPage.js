@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NewBook } from '../features/BookFeatures';
+import { useDispatch } from 'react-redux';
 
 const FormPage = () => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     const id = crypto.randomUUID();
-    NewBook(id, title, author).then(navigate('/'));
+    dispatch(NewBook({id, title, author})).then(navigate('/'));
   }
   return (
     <div className="w-9/12 m-auto my-14 uppercase">
