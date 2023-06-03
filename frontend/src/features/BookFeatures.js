@@ -10,6 +10,7 @@ const initialState = {
   error: null
 }
 
+// Create new book
 export const NewBook = createAsyncThunk("books/new", async (newBook, { rejectWithValue }) => {
   try {
     const response = await axios.post(`${url}/new`, newBook);
@@ -48,5 +49,4 @@ const bookSlice = createSlice({
   }
 });
 
-export const { AddBook } = bookSlice.actions;
-export default bookSlice;
+export default bookSlice.reducer;
