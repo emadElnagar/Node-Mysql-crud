@@ -20,6 +20,19 @@ export const NewBook = createAsyncThunk("books/new", async (newBook, { rejectWit
   }
 });
 
+// Update book
+export const UpdateBook = createAsyncThunk("book/update", async (book, { rejectWithValue }) => {
+  try {
+    const response = await axios.put(`${url}/update/${book.slug}`, {
+      title: book.title,
+      author: book.author
+    });
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+
 const bookSlice = createSlice({
   name: 'books',
   initialState,
@@ -43,6 +56,28 @@ const bookSlice = createSlice({
         state.books.push(action.payload);
       })
       .addCase(NewBook.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error;
+      })
+      // Update book extra reducers
+      .addCase(UpdateBook.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(UpdateBook.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const {
+          arg: { slug },
+        } = action.meta;
+        if (slug) {
+          state.books = state.books.map((item) =>
+            item.slug === slug ? action.payload : item
+          );
+          state.tours = state.tours.map((item) =>
+            item.slug === slug ? action.payload : item
+          );
+        }
+      })
+      .addCase(UpdateBook.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
       })

@@ -2,9 +2,12 @@ import axios from "axios";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { UpdateBook } from "../features/BookFeatures";
 
 const BookCard = (props) => {
   const { book } = props;
+  const dispatch = useDispatch();
   const handleDelete = (slug) => {
     swal.fire({
       title: 'Are you sure?',
@@ -44,12 +47,8 @@ const BookCard = (props) => {
         return { title, author }
       }
     }).then((result) => {
-      const title = result.value.title;
-      const author = result.value.author;
-      axios.put(`http://localhost:5000/books/update/${slug}`, {
-        title,
-        author
-      });
+      const { title, author } = result.value;
+      dispatch(UpdateBook({ slug, title, author }));
     });
   }
   return (
