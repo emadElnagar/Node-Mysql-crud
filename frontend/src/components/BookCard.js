@@ -1,9 +1,8 @@
-import axios from "axios";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FiEdit2 } from "react-icons/fi";
 import swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
-import { UpdateBook } from "../features/BookFeatures";
+import { DeleteBook, UpdateBook } from "../features/BookFeatures";
 
 const BookCard = (props) => {
   const { book } = props;
@@ -19,7 +18,7 @@ const BookCard = (props) => {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:5000/books/delete/${slug}`);
+        dispatch(DeleteBook({slug}));
         swal.fire(
           'Deleted!',
           'Your file has been deleted.',

@@ -33,6 +33,16 @@ export const UpdateBook = createAsyncThunk("book/update", async (book, { rejectW
   }
 });
 
+// Delete book
+export const DeleteBook = createAsyncThunk("book/delete", async (book, { rejectWithValue }) => {
+  try {
+    const response = await axios.delete(`${url}/delete/${book.slug}`);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+})
+
 const bookSlice = createSlice({
   name: 'books',
   initialState,
@@ -72,12 +82,26 @@ const bookSlice = createSlice({
           state.books = state.books.map((item) =>
             item.slug === slug ? action.payload : item
           );
-          state.tours = state.tours.map((item) =>
-            item.slug === slug ? action.payload : item
-          );
         }
       })
       .addCase(UpdateBook.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error;
+      })
+      // Delete book extra reducers
+      .addCase(DeleteBook.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(DeleteBook.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const {
+          arg: { slug },
+        } = action.meta;
+        if (slug) {
+          state.books = state.books.filter((book) => book.slug !== action.payload)
+        }
+      })
+      .addCase(DeleteBook.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
       })
