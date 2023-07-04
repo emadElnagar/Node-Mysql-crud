@@ -1,20 +1,18 @@
-import { useState, useEffect  } from "react";
+import { useEffect  } from "react";
 import BookCard from "../components/BookCard";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { GetAllBooks } from "../features/BookFeatures";
 
 const HomePage = () => {
-  const [list, setList] = useState([]);
+  const { books } = useSelector((state) => state.books);
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios.get('http://localhost:5000/books').then((books) => {
-      setList(books.data);
-    }).catch((err) => {
-      console.log(err);
-    })
-  }, [list]);
+    dispatch(GetAllBooks());
+  }, [dispatch]);
   return (
     <div>
       {
-        list.length > 0 ? list.map((book) => (
+        books.length > 0 ? books.map((book) => (
           <BookCard key={book.id}  book={book} />
         )) : (
           <div className="h-custom flex justify-center items-center">

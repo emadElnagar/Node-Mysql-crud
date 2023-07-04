@@ -20,6 +20,16 @@ export const NewBook = createAsyncThunk("books/new", async (newBook, { rejectWit
   }
 });
 
+// Get all books
+export const GetAllBooks = createAsyncThunk("books/all", async (_, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${url}`);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+})
+
 // Update book
 export const UpdateBook = createAsyncThunk("book/update", async (book, { rejectWithValue }) => {
   try {
@@ -66,6 +76,18 @@ const bookSlice = createSlice({
         state.books.push(action.payload);
       })
       .addCase(NewBook.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error;
+      })
+      // Get all books
+      .addCase(GetAllBooks.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(GetAllBooks.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.books = action.payload;
+      })
+      .addCase(GetAllBooks.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
       })
