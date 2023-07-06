@@ -5,6 +5,7 @@ const url = 'http://localhost:5000/books';
 
 const initialState = {
   books: [],
+  searchedBooks: [],
   book: null,
   isLoading: false,
   error: null
@@ -47,6 +48,16 @@ export const UpdateBook = createAsyncThunk("book/update", async (book, { rejectW
 export const DeleteBook = createAsyncThunk("book/delete", async (book, { rejectWithValue }) => {
   try {
     const response = await axios.delete(`${url}/delete/${book.slug}`);
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+})
+
+// Search books
+export const BookSearch = createAsyncThunk("book/search", async (search, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${url}/search`);
     return response.data;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -125,6 +136,20 @@ const bookSlice = createSlice({
       })
       .addCase(DeleteBook.rejected, (state, action) => {
         state.isLoading = false;
+        state.error = action.error;
+      })
+      // Seach book extra reducers
+      .addCase(BookSearch.pending, (state) => {
+        state.isLoading = true
+      })
+      .addCase(BookSearch.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.searchedBooks = state.books.filter((book) => 
+          book.title === action.payload || book.author === action.payload
+        )
+      })
+      .addCase(BookSearch.rejected, (state, action) => {
+        state.isLoading = true;
         state.error = action.error;
       })
   }
